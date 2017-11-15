@@ -19,13 +19,13 @@ export class App extends Component {
       }
       this.handleEmail = this.handleEmail.bind(this);
       this.handlePassword = this.handlePassword.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleEmail(e){
       this.setState({
         email: e.target.value,
       },() => {
-        console.log(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.state.email));
         (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.state.email)) ? this.setState({validEmail: true}) : this.setState({validEmail: false});
       })
     }
@@ -55,8 +55,12 @@ export class App extends Component {
       })
     }
 
+  handleSubmit(e){
+    e.preventDefault();
+    
+  }
 	render() {
-    const isEnabled = this.state.validPassword && this.state.validEmail;
+    const isEnabled = this.state.password.length > 0 && this.state.validEmail;
     let formEmail = classNames({
       'form-control': true,
       'form-control-success': this.state.validEmail,
@@ -72,7 +76,7 @@ export class App extends Component {
 				<div style={backgroundImage} id="bg">
           <div className="container centered">
             <div className="row">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-group has-success">
                 <input type="email" className={formEmail} id="exampleInputEmail1" aria-describedby="emailHelp" onChange={this.handleEmail} value={this.state.email} placeholder="Enter email" />
                 <small id="emailHelp" className="form-text text-muted">We will never share your email with anyone else.</small>
