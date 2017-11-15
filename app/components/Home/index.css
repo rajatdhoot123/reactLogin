@@ -17,3 +17,8 @@
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+
+.progress {
+  height: 4px;
+  margin-top: 4px;
+}
