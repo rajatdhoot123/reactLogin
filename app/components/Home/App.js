@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import logo from '../../../images/Logo.jpg'
 import classNames from 'classnames'
 require('./index.css');
 
 const backgroundImage = {
-  backgroundImage: "url('../../../images/Logo.jpg')"
+  backgroundImage: "url('../../../images/Background.jpg')"
 };
 
 export class App extends Component {
@@ -54,7 +53,7 @@ export class App extends Component {
 
   }
 	render() {
-    const isEnabled = this.state.password.length > 0 && this.state.validEmail;
+    const isEnabled = this.state.validPassword && this.state.validEmail;
     let formEmail = classNames({
       'form-control': true,
       'form-control-success': this.state.validEmail,
@@ -65,18 +64,23 @@ export class App extends Component {
       'bg-warning': (this.state.passwordColor == 50) ? true : false,
       'bg-danger':  (this.state.passwordColor == 0) ? true : false,
     })
+    let formGroup = classNames({
+      'form-group': true,
+      'has-success': this.state.validEmail,
+      'has-danger' : !this.state.validEmail,
+    })
+    
 		return (
 			<div style={backgroundImage} id="bg">
           <div className="container centered">
             <div className="row">
             <form onSubmit={this.handleSubmit}>
-              <div className="form-group has-success">
+              <div className={formGroup}>
                 <input type="email" className={formEmail} id="exampleInputEmail1" aria-describedby="emailHelp" onChange={this.handleEmail} value={this.state.email} placeholder="Enter email" />
                 <small id="emailHelp" className="form-text text-muted">We will never share your email with anyone else.</small>
               </div>
               <div className="form-group">
                 <input type="password" className="form-control" id="exampleInputPassword1" onChange={this.handlePassword} value={this.state.password} placeholder="Password" />
-                <div className="form-control-feedback">Sorry, that usernames taken. Try another?</div>
                 <div className="progress">
                   <div className={passwordProgress} role="progressbar" style={{width: `100%`}} aria-valuemax="100"></div>
                 </div>

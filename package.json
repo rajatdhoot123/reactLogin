@@ -16,6 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.5",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   },
