@@ -31,33 +31,27 @@ export class App extends Component {
     }
 
     handlePassword(e){
+      const {regex} = this.props;
       this.setState({
         password: e.target.value,
       },() => {
-        let strongRegex = (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/);
-        let mediumRegex = (/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/);
-        if(strongRegex.test(this.state.password)){
+        if(regex.test(this.state.password)){
           this.setState({
-            passwordColor : 100,
-            validPassword: true,
-          })
-        } else if(mediumRegex.test(this.state.password)){
-          this.setState({
-            passwordColor: 50,
-            validPassword: true,
+             passwordColor : 100,
+             validPassword: true,
           })
         } else {
           this.setState({
-            passwordColor: 0,
-            validPassword: false,
-          })
+               passwordColor : 0,
+               validPassword: false,
+            })
         }
       })
     }
 
   handleSubmit(e){
     e.preventDefault();
-    
+
   }
 	render() {
     const isEnabled = this.state.password.length > 0 && this.state.validEmail;
@@ -72,8 +66,7 @@ export class App extends Component {
       'bg-danger':  (this.state.passwordColor == 0) ? true : false,
     })
 		return (
-			<div>
-				<div style={backgroundImage} id="bg">
+			<div style={backgroundImage} id="bg">
           <div className="container centered">
             <div className="row">
             <form onSubmit={this.handleSubmit}>
@@ -81,8 +74,9 @@ export class App extends Component {
                 <input type="email" className={formEmail} id="exampleInputEmail1" aria-describedby="emailHelp" onChange={this.handleEmail} value={this.state.email} placeholder="Enter email" />
                 <small id="emailHelp" className="form-text text-muted">We will never share your email with anyone else.</small>
               </div>
-              <div className="form-group has-success">
+              <div className="form-group">
                 <input type="password" className="form-control" id="exampleInputPassword1" onChange={this.handlePassword} value={this.state.password} placeholder="Password" />
+                <div className="form-control-feedback">Sorry, that usernames taken. Try another?</div>
                 <div className="progress">
                   <div className={passwordProgress} role="progressbar" style={{width: `100%`}} aria-valuemax="100"></div>
                 </div>
@@ -91,7 +85,6 @@ export class App extends Component {
             </form>
             </div>
           </div>
-        </div>
       </div>
 		)
 	}
